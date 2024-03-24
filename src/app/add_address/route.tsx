@@ -1,8 +1,5 @@
 /* eslint-disable react/jsx-key */
 import { createFrames, Button } from "frames.js/next";
-import { getAddressForFid } from "frames.js"
-import backgroundImg from '../../../public/background.png'
-import cryptoRandomString from 'crypto-random-string';
 import { supabase } from '../lib/supabase'
 
 const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_APP_URL || '';
@@ -12,11 +9,9 @@ export const frames = createFrames();
 const handleRequest = frames(async (ctx) => {
 
     if (ctx?.message?.inputText) {
-        const id = cryptoRandomString({ length: 6, type: 'distinguishable' });
-        await supabase.from('item_data').insert({
+        await supabase.from('user_address').insert({
             fid: ctx?.message?.castId.fid,
-            data: ctx?.message?.inputText,
-            id: id,
+            address: ctx?.message?.inputText,
         });
     }
     const imageUrl = 'https://dwscixefzodpolbzcyox.supabase.co/storage/v1/object/public/base_shop_bucket/shop.png';
@@ -31,15 +26,9 @@ const handleRequest = frames(async (ctx) => {
         buttons: [
             <Button
                 action="post"
-                target={`${NEXT_PUBLIC_URL}/create_shop`}
-            >
-                Add Item
-            </Button>,
-            <Button
-                action="post"
                 target={`${NEXT_PUBLIC_URL}/add_address`}
             >
-                Acc. Add.
+                Save
             </Button>,
             <Button
                 action="link"
@@ -49,13 +38,13 @@ const handleRequest = frames(async (ctx) => {
             </Button>,
             <Button
                 action="post"
-                target={`${NEXT_PUBLIC_URL}/base_shop`}
+                target={`${NEXT_PUBLIC_URL}/create_shop`}
             >
                 Go Back
             </Button>,
 
         ],
-        textInput: "Enter Product",
+        textInput: "Enter your base address",
     };
 });
 export const GET = handleRequest;

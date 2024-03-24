@@ -31,26 +31,26 @@ const handleRequest = frames(async (ctx) => {
         image: (
 
             <div tw="flex w-8/12 text-pretty relative" >
-                <img src={imageUrl} alt="Image" />
-                <div tw="flex text-5xl text-black absolute top-80 left-80">
-                    {itemData?.data?.[pageIndex].data}
-                </div>
+                {totalItems > 0 ? <><img src={imageUrl} alt="Image" />
+                    <div tw="flex text-5xl text-black absolute top-80 left-40">
+                        {itemData?.data?.[pageIndex].data}
+                    </div></> : "Under Development"}
             </div>
 
         ),
         buttons: [
             <Button
                 action="post"
-                target={`${NEXT_PUBLIC_URL}/shop/?pageIndex=${(pageIndex - 1) % totalItems}`}
+                target={`${NEXT_PUBLIC_URL}/shop/${match?.[0]}/?pageIndex=${(pageIndex - 1) % totalItems}`}
             >
                 ←
             </Button>,
-            <Button action="tx" target={`${NEXT_PUBLIC_URL}/api/txdata`} >
+            <Button action="tx" target={`${NEXT_PUBLIC_URL}/txdata`} >
                 Buy it
             </Button >,
             <Button
                 action="post"
-                target={`${NEXT_PUBLIC_URL}/shop/?pageIndex=${(pageIndex + 1) % totalItems}`}
+                target={`${NEXT_PUBLIC_URL}/shop/${match?.[0]}/?pageIndex=${(pageIndex + 1) % totalItems}`}
             >
                 →
             </Button >,

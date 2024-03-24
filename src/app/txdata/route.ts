@@ -4,7 +4,6 @@ import {
   PreviousFrame,
   getPreviousFrame,
 } from 'frames.js/next/server';
-import { Preahvihear } from 'next/font/google';
 import { NextRequest, NextResponse } from 'next/server';
 import { encodeFunctionData, formatEther, parseEther, parseGwei } from 'viem';
 import { baseSepolia } from 'viem/chains';
@@ -13,7 +12,6 @@ import { baseSepolia } from 'viem/chains';
 export function POST(
   req: NextRequest
 ): NextResponse<TransactionTargetResponse> {
-  // console.log(req, 'run');
   return NextResponse.json({
     chainId: `eip155:${baseSepolia.id}`,
     method: 'eth_sendTransaction',

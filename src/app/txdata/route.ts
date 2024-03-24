@@ -26,7 +26,7 @@ export async function POST(
       abi: [], // "function rent(uint256 fid, uint256 units) payable"
       to: userId,
       data: '0x783a112b0000000000000000000000000000000000000000000000000000000000000e250000000000000000000000000000000000000000000000000000000000000001',
-      value: parseGwei('1000000').toString(),
+      value: parseGwei('100000').toString(),
     },
   });
 }

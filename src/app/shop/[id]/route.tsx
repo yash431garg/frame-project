@@ -12,11 +12,35 @@ export const frames = createFrames({
 });
 
 const handleRequest = frames(async (ctx) => {
+    if (ctx.message?.transactionId) {
+        return {
+            image: (
+                <div tw="bg-white w-10/12 h-full justify-center items-center flex flex-col">
+                    <p>
+                        Your order is on the way 🏎️!
+                    </p>
+                    <p tw="">
+                        {ctx.message.transactionId}
+                    </p>
+                </div>
+            ),
+            imageOptions: {
+                aspectRatio: "1:1",
+            },
+            buttons: [
+                <Button
+                    action="link"
+                    target={`https://www.onceupon.gg/tx/${ctx.message.transactionId}`}
+                >
+                    View on block explorer
+                </Button>,
+            ],
+        };
+    }
     const pageIndex = Number(ctx.searchParams.pageIndex || 0);
     const imageUrl = 'https://dwscixefzodpolbzcyox.supabase.co/storage/v1/object/public/base_shop_bucket/shop_items.png';
     // Regular expression pattern to extract numbers
     const pattern = /\d+/;
-
     // Using RegExp.prototype.exec() to extract the number from the pathname
     const match = pattern.exec(ctx.url.pathname);
 

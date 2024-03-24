@@ -7,7 +7,6 @@ const NEXT_PUBLIC_URL = process.env.NEXT_PUBLIC_APP_URL || '';
 export const frames = createFrames();
 
 const handleRequest = frames(async (ctx) => {
-
     if (ctx?.message?.inputText) {
         await supabase.from('user_address').insert({
             fid: ctx?.message?.castId.fid,
